@@ -1,0 +1,11 @@
+# THESE COLORS WILL BE USED EVERYWHERE, CHAT, GUI'S, ETC.
+
+PRIMARY_COLOR: red
+SECONDARY_COLOR: yellow
+
+# MOTD, this is also changed in the in-game command
+
+motd:
+  lines:
+    - "Welcome to the server!"
+    - "Have fun!"

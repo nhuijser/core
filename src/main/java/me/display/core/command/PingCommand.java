@@ -1,5 +1,7 @@
 package me.display.core.command;
 
+import me.display.core.Core;
+import me.display.core.config.ColorHandler;
 import me.vaperion.blade.annotation.argument.Name;
 import me.vaperion.blade.annotation.argument.Optional;
 import me.vaperion.blade.annotation.argument.Sender;
@@ -10,8 +12,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 import static net.kyori.adventure.text.Component.text;
-import static net.kyori.adventure.text.format.NamedTextColor.LIGHT_PURPLE;
-import static net.kyori.adventure.text.format.NamedTextColor.YELLOW;
 
 public class PingCommand {
 
@@ -26,12 +26,24 @@ public class PingCommand {
 
         int ping = target.getPing();
 
+        // Get your config-defined colors
+        ColorHandler colorHandler = Core.getInstance().getColorHandler();
+        var primary = colorHandler.getPrimaryColor();
+        var secondary = colorHandler.getSecondaryColor();
+
         if (sender.equals(target)) {
-            sender.sendMessage(text("Your ping is ", YELLOW)
-                    .append(text(ping + " ", LIGHT_PURPLE))
-                    .append(text("ms", YELLOW)));
+            sender.sendMessage(
+                    text("Your ping is ", primary)
+                            .append(text(ping + " ", secondary))
+                            .append(text("ms", primary))
+            );
         } else {
-            sender.sendMessage(text(target.getName(), LIGHT_PURPLE).append(text(" 's ping is", YELLOW)).append(text(ping + " ", LIGHT_PURPLE)).append(text("ms", YELLOW)));
+            sender.sendMessage(
+                    text(target.getName(), secondary)
+                            .append(text("'s ping is ", primary))
+                            .append(text(ping + " ", secondary))
+                            .append(text("ms", primary))
+            );
         }
     }
 }

@@ -1,4 +1,6 @@
 package me.display.core.command;
+import me.display.core.Core;
+import me.display.core.config.ColorHandler;
 
 import me.vaperion.blade.annotation.argument.Name;
 import me.vaperion.blade.annotation.argument.Optional;
@@ -26,6 +28,16 @@ public class DemoCommand {
 
         target.showDemoScreen();
 
-        sender.sendMessage(text("You have sent ", YELLOW).append(text(target.getName(), LIGHT_PURPLE)).append(text(" the demo screen.", YELLOW)));
+        // Access configured colors
+        ColorHandler colorHandler = Core.getInstance().getColorHandler();
+
+        var primary = colorHandler.getPrimaryColor();
+        var secondary = colorHandler.getSecondaryColor();
+
+        sender.sendMessage(
+                text("You have sent ", primary)
+                        .append(text(target.getName(), secondary))
+                        .append(text(" the demo screen.", primary))
+        );
     }
 }
